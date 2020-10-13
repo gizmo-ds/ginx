@@ -12,4 +12,3 @@ steps:
       GIN_MODE: release
     commands:
       - go test -timeout 10s -v .
-      - go build
