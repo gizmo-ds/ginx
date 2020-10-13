@@ -1,4 +1,4 @@
-module ginx
+module github.com/GizmoOAO/ginx
 
 go 1.15
 
