@@ -7,7 +7,7 @@ import (
 )
 
 func bindError(err error) {
-	resp := Resp{
+	resp := Response{
 		StatusCode: http.StatusBadRequest,
 		Message:    "bad request",
 		Error:      err.Error(),
