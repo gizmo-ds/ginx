@@ -44,8 +44,13 @@ func R(statusCode int, args ...interface{}) {
 	resp := response{
 		StatusCode: statusCode,
 	}
-	if len(args) >= 1 {
-		resp.Message = args[0]
+	if len(args) >= 1 && args[0] != nil {
+		switch v := args[0].(type) {
+		case error:
+			resp.Error = v.Error()
+		default:
+			resp.Message = v
+		}
 	}
 	if len(args) >= 2 {
 		resp.Data = args[1]
