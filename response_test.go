@@ -13,7 +13,7 @@ import (
 
 func TestResponse(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	app.GET("/test", func(c *gin.Context) {
 		ginx.R(http.StatusOK, "Hello", "World")
 	})
@@ -27,7 +27,7 @@ func TestResponse(t *testing.T) {
 
 func TestCustomResponse(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 
 	ginx.CustomResponse(custom{})
 

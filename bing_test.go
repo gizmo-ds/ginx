@@ -13,7 +13,7 @@ import (
 
 func TestBind(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
@@ -33,7 +33,7 @@ func TestBind(t *testing.T) {
 
 func TestBindJSON(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `json:"data" binding:"required"`
 	}
@@ -52,7 +52,7 @@ func TestBindJSON(t *testing.T) {
 
 func TestBindXML(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `xml:"data" json:"data" binding:"required"`
 	}
@@ -73,7 +73,7 @@ func TestBindXML(t *testing.T) {
 
 func TestBindQuery(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
@@ -92,7 +92,7 @@ func TestBindQuery(t *testing.T) {
 
 func TestBindYAML(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `yaml:"data" json:"data" binding:"required"`
 	}
@@ -111,7 +111,7 @@ func TestBindYAML(t *testing.T) {
 
 func TestShouldBind(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
@@ -131,7 +131,7 @@ func TestShouldBind(t *testing.T) {
 
 func TestShouldBindJSON(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `json:"data" binding:"required"`
 	}
@@ -150,7 +150,7 @@ func TestShouldBindJSON(t *testing.T) {
 
 func TestShouldBindXML(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `xml:"data" json:"data" binding:"required"`
 	}
@@ -171,7 +171,7 @@ func TestShouldBindXML(t *testing.T) {
 
 func TestShouldBindQuery(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
@@ -190,7 +190,7 @@ func TestShouldBindQuery(t *testing.T) {
 
 func TestShouldBindYAML(t *testing.T) {
 	app := gin.New()
-	app.Use(ginx.Response())
+	app.Use(ginx.Ginx())
 	type TestType struct {
 		Data string `yaml:"data" json:"data" binding:"required"`
 	}
