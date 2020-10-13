@@ -1,4 +1,4 @@
-package ginx
+package ginx_test
 
 import (
 	"net/http"
@@ -6,20 +6,21 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/GizmoOAO/ginx"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestBind(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		Bind(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.Bind(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader("data=Hello+World"))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -32,14 +33,14 @@ func TestBind(t *testing.T) {
 
 func TestBindJSON(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		BindJSON(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.BindJSON(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(`{"data":"Hello World"}`))
 	w := httptest.NewRecorder()
@@ -51,14 +52,14 @@ func TestBindJSON(t *testing.T) {
 
 func TestBindXML(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `xml:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		BindXML(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.BindXML(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(
 		`<?xml version="1.0" encoding="UTF-8"?><root><data>Hello World</data></root>`,
@@ -72,14 +73,14 @@ func TestBindXML(t *testing.T) {
 
 func TestBindQuery(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		BindQuery(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.BindQuery(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test?data=Hello+World", nil)
 	w := httptest.NewRecorder()
@@ -91,14 +92,14 @@ func TestBindQuery(t *testing.T) {
 
 func TestBindYAML(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `yaml:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		BindYAML(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.BindYAML(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(`data: "Hello World"`))
 	w := httptest.NewRecorder()
@@ -110,14 +111,14 @@ func TestBindYAML(t *testing.T) {
 
 func TestShouldBind(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		ShouldBind(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.ShouldBind(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader("data=Hello+World"))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -130,14 +131,14 @@ func TestShouldBind(t *testing.T) {
 
 func TestShouldBindJSON(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		ShouldBindJSON(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.ShouldBindJSON(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(`{"data":"Hello World"}`))
 	w := httptest.NewRecorder()
@@ -149,14 +150,14 @@ func TestShouldBindJSON(t *testing.T) {
 
 func TestShouldBindXML(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `xml:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		ShouldBindXML(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.ShouldBindXML(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(
 		`<?xml version="1.0" encoding="UTF-8"?><root><data>Hello World</data></root>`,
@@ -170,14 +171,14 @@ func TestShouldBindXML(t *testing.T) {
 
 func TestShouldBindQuery(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `form:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		ShouldBindQuery(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.ShouldBindQuery(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test?data=Hello+World", nil)
 	w := httptest.NewRecorder()
@@ -189,14 +190,14 @@ func TestShouldBindQuery(t *testing.T) {
 
 func TestShouldBindYAML(t *testing.T) {
 	app := gin.New()
-	app.Use(Response())
+	app.Use(ginx.Response())
 	type TestType struct {
 		Data string `yaml:"data" json:"data" binding:"required"`
 	}
 	app.POST("/test", func(c *gin.Context) {
 		var data TestType
-		ShouldBindYAML(c, &data)
-		R(http.StatusOK, nil, data)
+		ginx.ShouldBindYAML(c, &data)
+		ginx.R(http.StatusOK, nil, data)
 	})
 	req, _ := http.NewRequest(http.MethodPost, "/test", strings.NewReader(`data: "Hello World"`))
 	w := httptest.NewRecorder()
