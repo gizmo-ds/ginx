@@ -9,6 +9,7 @@ steps:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
+      GIN_MODE: release
     commands:
       - go test -timeout 10s -v .
       - go build
