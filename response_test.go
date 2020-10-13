@@ -29,7 +29,15 @@ func TestCustomResponse(t *testing.T) {
 	app := gin.New()
 	app.Use(ginx.Ginx())
 
-	ginx.CustomResponse(custom{})
+	ginx.CustomResponse = func(code int, args ...interface{}) interface{} {
+		return struct {
+			StatusCode int           `json:"code"`
+			Args       []interface{} `json:"args,omitempty"`
+		}{
+			StatusCode: code,
+			Args:       args,
+		}
+	}
 
 	app.GET("/test", func(c *gin.Context) {
 		ginx.R(http.StatusOK, "Hello", "World")
@@ -40,16 +48,4 @@ func TestCustomResponse(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Equal(t, `{"code":200,"args":["Hello","World"]}`, w.Body.String())
-}
-
-type custom struct {
-	StatusCode int           `json:"code"`
-	Args       []interface{} `json:"args,omitempty"`
-}
-
-func (custom) Custom(code int, args ...interface{}) interface{} {
-	return custom{
-		StatusCode: code,
-		Args:       args,
-	}
 }

@@ -14,12 +14,12 @@ type (
 		Message    string      `json:"message,omitempty"`
 		Data       interface{} `json:"data,omitempty"`
 	}
-	CustomInterface interface {
-		Custom(int, ...interface{}) interface{}
-	}
+
+	// 返回值应为 struct, 并且第一个参数必须是 StatusCode, 且类型需要为 int
+	CustomResponseHandlerFunc func(int, ...interface{}) interface{}
 )
 
-var customResponse CustomInterface
+var CustomResponse CustomResponseHandlerFunc
 
 func Ginx() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -38,8 +38,12 @@ func Ginx() gin.HandlerFunc {
 					c.JSON(http.StatusInternalServerError,
 						Response{Error: v})
 					c.Abort()
-				case CustomInterface:
-					c.JSON(int(reflect.ValueOf(v).Field(0).Int()), v)
+				default:
+					code := http.StatusInternalServerError
+					if v := reflect.ValueOf(v).Field(0); v.Kind() == reflect.Int {
+						code = int(v.Int())
+					}
+					c.JSON(code, v)
 					c.Abort()
 				}
 			}
@@ -50,8 +54,8 @@ func Ginx() gin.HandlerFunc {
 
 func R(statusCode int, args ...interface{}) {
 
-	if customResponse != nil {
-		panic(customResponse.Custom(statusCode, args...))
+	if CustomResponse != nil {
+		panic(CustomResponse(statusCode, args...))
 	}
 
 	resp := Response{
@@ -69,12 +73,6 @@ func R(statusCode int, args ...interface{}) {
 		resp.Data = args[1]
 	}
 	panic(resp)
-}
-
-func CustomResponse(custom CustomInterface) {
-	if custom != nil {
-		customResponse = custom
-	}
 }
 
 func Error(err error) {
