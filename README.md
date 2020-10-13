@@ -13,7 +13,7 @@
 下载并安装 ginx:
 
 ```bash
-go get -u github.com/gin-gonic/gin
+go get -u github.com/GizmoOAO/ginx
 ```
 
 将 ginx 引入到代码:
