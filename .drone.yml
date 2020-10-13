@@ -3,7 +3,7 @@ type: docker
 name: default
 
 steps:
-  - name: build
+  - name: testing
     image: golang:1.15-alpine
     environment:
       GOOS: linux
