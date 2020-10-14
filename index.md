@@ -1,37 +1,34 @@
-## Welcome to GitHub Pages
+# ginx
 
-You can use the [editor on GitHub](https://github.com/GizmoOAO/ginx/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+一个基于 gin 的简单中间件, 能更方便地处理返回数据跟处理数据绑定.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+> 没做过性能测试, 可能会存在性能上的问题.
 
-### Markdown
+[![Build Status](https://drone.liuli.lol/api/badges/GizmoOAO/ginx/status.svg?ref=refs/heads/main)](https://drone.liuli.lol/GizmoOAO/ginx)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/GizmoOAO/ginx/main)
+[![GitHub](https://img.shields.io/github/license/GizmoOAO/ginx)](./LICENSE)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# 安装
 
-```markdown
-Syntax highlighted code block
+下载并安装 ginx:
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+go get -u github.com/GizmoOAO/ginx
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+将 ginx 引入到代码:
 
-### Jekyll Themes
+```go
+import "github.com/GizmoOAO/ginx"
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/GizmoOAO/ginx/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# 使用
 
-### Support or Contact
+```go
+app := gin.New()
+app.Use(ginx.Ginx())
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# 许可证
+
+MIT
