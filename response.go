@@ -1,6 +1,7 @@
 package ginx
 
 import (
+	"log"
 	"net/http"
 	"reflect"
 
@@ -76,5 +77,34 @@ func R(statusCode int, args ...interface{}) {
 }
 
 func Error(err error) {
+	log.Println(err)
 	panic(err)
+}
+
+func IfError(err error) {
+	if err != nil {
+		Error(err)
+	}
+}
+
+func OK(message string) {
+	panic(Response{
+		StatusCode: http.StatusOK,
+		Message:    message,
+	})
+}
+
+func Success() {
+	OK("success")
+}
+
+func BadRequest(err ...error) {
+	resp := Response{
+		StatusCode: http.StatusBadRequest,
+		Message:    "bad request",
+	}
+	if len(err) > 0 {
+		resp.Error = err[0].Error()
+	}
+	panic(resp)
 }
